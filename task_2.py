@@ -17,28 +17,22 @@ from memory_profiler import profile
 
 
 @profile
-def some_func(start=32, end=127, st=''):
-    if start > end:
-        return
-    else:
-        print(f'{start} - {chr(start)} ', end='')
-        if start % 10 == 1:
-            print('\n')
-        some_func(start + 1)
+def wrapper(*args, **kwargs):
+    def some_func(start=32, end=127):
+        if start > end:
+            return
+        else:
+            print(f'{start} - {chr(start)} ', end='')
+            if start % 10 == 1:
+                print('\n')
+            some_func(start + 1)
 
-some_func()
+    return some_func()
 
 
-@profile
-def some_func2(start=32, end=127, st=''):
-    for i in range(start, end + 1):
-        print(f'{i} - {chr(i)} ', end='')
-        if i % 10 == 1:
-            print('\n')
+print(wrapper())
 
-some_func2()
 
 '''
-Декоратор считывает только первый шаг рекурсии. 
-Проблему решил через цикл. Цикл оптимиризует данное решение.
+Декоратор считывает только первый шаг рекурсии. Решил рукрсию обернуть.
 '''
