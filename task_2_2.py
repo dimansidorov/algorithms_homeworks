@@ -1,0 +1,48 @@
+"""
+Задание 2. Массив размером 2m + 1, где m – натуральное число,
+заполнен случайным образом. Найдите в массиве медиану.
+
+Медианой называется элемент ряда, делящий его на
+две равные по длине части:
+в одной находятся элементы,
+которые не меньше медианы,
+в другой – не больше медианы.
+
+Решите задачу тремя способами:
+
+2) без сортировки
+
+сделайте замеры на массивах длиной 10, 100, 1000 элементов
+"""
+from random import randint, seed
+from timeit import timeit
+
+seed(1)
+
+
+def median_(lst):
+    for i in range((len(lst) // 2) + 1):
+        result = lst.pop(lst.index(max(lst)))
+
+    return result
+
+
+m = 10
+ten = [randint(-100, 100) for _ in range(2 * m + 1)]
+print(f'Медиана массива из 10 элементов - {median_(ten)}')
+print(f'Замер функции поиска медиана в массиве длиной 10: '
+      f'{timeit("median_(ten[:])",globals=globals(),number=1000)}')    # 0.003511600021738559
+
+
+m = 100
+hundred = [randint(-100, 100) for _ in range(2 * m + 1)]
+print(f'Медиана массива из 100 элементов - {median_(hundred)}')
+print(f'Замер функции поиска медиана в массиве длиной 100: '
+      f'{timeit("median_(hundred[:])",globals=globals(),number=1000)}')    # 0.09783220000099391
+
+
+m = 1000
+thousand = [randint(-100, 100) for _ in range(2 * m + 1)]
+print(f'Медиана массива из 1000 элементов - {median_(thousand)}')
+print(f'Замер функции поиска медиана в массиве длиной 1000: '
+      f'{timeit("median_(thousand[:])",globals=globals(),number=1000)}')    # 7.4271575000020675
